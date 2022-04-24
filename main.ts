@@ -13,7 +13,7 @@ radio.onReceivedValue(function (name, value) {
             achterui = value
         }
         r_motor = -1 * achterui - rechts
-        l_motor = -1 * achterui - rechts
+        l_motor = -1 * achterui + rechts
     }
 })
 let l_motor = 0
@@ -21,22 +21,25 @@ let r_motor = 0
 let achterui = 0
 let rechts = 0
 let alles = 0
+basic.showIcon(IconNames.Chessboard)
 alles = 69
 radio.setGroup(69)
 basic.forever(function () {
-    if (r_motor > 0) {
-        pins.analogWritePin(AnalogPin.P0, 0)
-        pins.analogWritePin(AnalogPin.P1, Math.abs(r_motor))
-    } else {
-        pins.analogWritePin(AnalogPin.P1, 0)
-        pins.analogWritePin(AnalogPin.P0, Math.abs(r_motor))
-    }
-    if (l_motor > 0) {
-        pins.analogWritePin(AnalogPin.P4, 0)
-        pins.analogWritePin(AnalogPin.P10, Math.abs(l_motor))
-    } else {
-        pins.analogWritePin(AnalogPin.P10, 0)
-        pins.analogWritePin(AnalogPin.P4, Math.abs(l_motor))
+    if (alles == 69) {
+        if (r_motor > 0) {
+            pins.analogWritePin(AnalogPin.P0, 0)
+            pins.analogWritePin(AnalogPin.P1, Math.abs(r_motor))
+        } else {
+            pins.analogWritePin(AnalogPin.P1, 0)
+            pins.analogWritePin(AnalogPin.P0, Math.abs(r_motor))
+        }
+        if (l_motor > 0) {
+            pins.analogWritePin(AnalogPin.P4, 0)
+            pins.analogWritePin(AnalogPin.P10, Math.abs(l_motor))
+        } else {
+            pins.analogWritePin(AnalogPin.P10, 0)
+            pins.analogWritePin(AnalogPin.P4, Math.abs(l_motor))
+        }
     }
     while (alles == 0) {
         let b_motor = 0
@@ -53,6 +56,9 @@ basic.forever(function () {
             alles = 60
             pins.analogWritePin(AnalogPin.P0, 1023)
             pins.analogWritePin(AnalogPin.P0, 1023)
+        }
+        if (input.buttonIsPressed(Button.B)) {
+            alles = 69
         }
     }
 })
